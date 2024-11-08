@@ -9,8 +9,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * Servicio para exportar datos de alumnos a un archivo.
+ */
 public class ArchivoServicio {
 
+    /**
+     * Exporta los datos de los alumnos a un archivo en la ruta especificada.
+     * @param alumnos mapa de alumnos a exportar
+     * @param ruta la ruta del archivo de destino
+     */
     public void exportarDatos(Map<String, Alumno> alumnos, String ruta) {
         File archivo = new File(ruta);
         File carpeta = archivo.getParentFile();

@@ -6,11 +6,18 @@ import com.colegio.controlalumnos.servicios.ArchivoServicio;
 
 import java.util.Scanner;
 
+/**
+ * Clase que representa el menú principal de la aplicación.
+ * Proporciona opciones para gestionar alumnos, materias y notas.
+ */
 public class Menu extends MenuTemplate {
     private AlumnoServicio alumnoServicio = new AlumnoServicio();
     private ArchivoServicio archivoServicio = new ArchivoServicio();
     private Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Muestra las opciones del menú principal.
+     */
     @Override
     protected void mostrarOpciones() {
         System.out.println("AL EJECUTAR EL MENÚ:");
@@ -23,6 +30,10 @@ public class Menu extends MenuTemplate {
         System.out.print("Selección: ");
     }
 
+    /**
+     * Ejecuta la acción correspondiente a la opción seleccionada.
+     * @param opcion la opción seleccionada por el usuario
+     */
     @Override
     protected void ejecutarOpcion(int opcion) {
         switch (opcion) {
@@ -55,15 +66,24 @@ public class Menu extends MenuTemplate {
         return 5;
     }
 
+    /**
+     * Opción para crear un alumno.
+     */
     @Override
     public void crearAlumno() {
         alumnoServicio.crearAlumno();
     }
 
+    /**
+     * Opción para listar todos los alumnos.
+     */
     public void listarAlumnos() {
         alumnoServicio.listarAlumnos();
     }
 
+    /**
+     * Opción para agregar una nota a una materia de un alumno.
+     */
     public void seleccionarMateriaParaAgregar() {
         System.out.print("Ingresa RUT del alumno: ");
         String rut = scanner.nextLine();
@@ -110,7 +130,7 @@ public class Menu extends MenuTemplate {
 
         System.out.print("Selecciona una Materia: ");
         int opcionMateria = scanner.nextInt();
-        scanner.nextLine(); // Limpiar buffer
+        scanner.nextLine();
 
         // Validar la opción de materia seleccionada
         if (opcionMateria < 1 || opcionMateria > alumno.getMaterias().size()) {
@@ -124,13 +144,16 @@ public class Menu extends MenuTemplate {
         // Solicitar la nota a agregar
         System.out.print("Ingresa la nota: ");
         double nota = scanner.nextDouble();
-        scanner.nextLine(); // Limpiar buffer
+        scanner.nextLine();
 
         // Agregar la nota a la materia y mostrar mensaje
         materiaSeleccionada.agregarNota(nota);
         System.out.println("Nota " + nota + " agregada a la materia " + materiaSeleccionada.getNombre());
     }
 
+    /**
+     * Opción para exportar los datos de los alumnos a un archivo.
+     */
     public void exportarDatos() {
         System.out.print("Ingresa la ruta completa del archivo (incluye el nombre y extensión del archivo): ");
         String ruta = scanner.nextLine();

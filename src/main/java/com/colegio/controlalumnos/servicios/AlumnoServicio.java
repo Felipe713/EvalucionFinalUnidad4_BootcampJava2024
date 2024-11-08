@@ -8,11 +8,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * Servicio para gestionar operaciones relacionadas con los alumnos,
+ * incluyendo la creación de alumnos, listado, asignación de materias y notas.
+ */
 public class AlumnoServicio {
     private Map<String, Alumno> listaAlumnos = new HashMap<>();
     private Scanner scanner = new Scanner(System.in);
+    private PromedioServicioImp promedioServicio = new PromedioServicioImp(); // Inyectamos PromedioServicioImp
 
-    // Método para crear un alumno con entrada desde consola
+    /**
+     * Crea un nuevo alumno con datos ingresados por el usuario.
+     */
     public void crearAlumno() {
         System.out.print("Ingresa RUT: ");
         String rut = scanner.nextLine();
@@ -33,7 +40,9 @@ public class AlumnoServicio {
         System.out.println("¡Alumno agregado!");
     }
 
-    // Método para listar alumnos registrados
+    /**
+     * Lista todos los alumnos registrados junto con sus detalles, materias y el promedio de cada materia.
+     */
     public void listarAlumnos() {
         if (listaAlumnos.isEmpty()) {
             System.out.println("No hay alumnos registrados.");
@@ -46,14 +55,21 @@ public class AlumnoServicio {
             System.out.println("Apellido: " + alumno.getApellido());
             System.out.println("Dirección: " + alumno.getDireccion());
             System.out.println("Materias:");
+
             for (Materia materia : alumno.getMaterias()) {
-                System.out.println("  - " + materia.getNombre() + ": Notas " + materia.getNotas());
+                // Utilizamos PromedioServicioImp para calcular el promedio de la materia
+                double promedio = promedioServicio.calcularPromedio(materia);
+                System.out.println("  - " + materia.getNombre() + ": Notas " + materia.getNotas() + " - Promedio: " + promedio);
             }
-            System.out.println();
+            System.out.println(); // Línea en blanco para separar los alumnos
         }
     }
 
-    // Método para agregar una materia a un alumno con entrada desde consola
+    /**
+     * Agrega una materia a un alumno específico.
+     * @param rut el RUT del alumno al que se le agregará la materia
+     * @param materiaEnum la materia a agregar
+     */
     public void agregarMateria(String rut) {
         Alumno alumno = listaAlumnos.get(rut);
         if (alumno == null) {
@@ -80,7 +96,12 @@ public class AlumnoServicio {
         System.out.println("¡Materia agregada a " + alumno.getNombre() + "!");
     }
 
-    // Método para agregar una nota a una materia específica de un alumno
+    /**
+     * Agrega una nota a una materia específica de un alumno.
+     * @param rut el RUT del alumno
+     * @param materiaEnum la materia a la que se le agregará la nota
+     * @param nota la nota a agregar
+     */
     public void agregarNota(String rut, MateriaEnum materiaEnum, double nota) {
         Alumno alumno = listaAlumnos.get(rut);
         if (alumno == null) {
@@ -98,7 +119,10 @@ public class AlumnoServicio {
         System.out.println("Materia no encontrada.");
     }
 
-    // Método para obtener la lista de alumnos (para otros métodos)
+    /**
+     * Obtiene la lista de alumnos registrados.
+     * @return un mapa de alumnos, donde la clave es el RUT
+     */
     public Map<String, Alumno> getListaAlumnos() {
         return listaAlumnos;
     }
