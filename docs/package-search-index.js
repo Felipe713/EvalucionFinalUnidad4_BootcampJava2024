@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.colegio.controlalumnos"},{"l":"com.colegio.controlalumnos.modelos"},{"l":"com.colegio.controlalumnos.servicios"},{"l":"com.colegio.controlalumnos.vistas"}];updateSearchResults();
